@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  devcontainer:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    command: sleep infinity
+    volumes:
+      # Mount the project directory from the host into the container
+      - ..:/workspaces/Dev-Containers-Practice:cached
+    ports:
+      # Expose your application's port
+      - "8000:8000"
+    environment:
+      # Set environment variables for your application to connect to the DB
+      - DATABASE_URL=postgresql://user:password@dev-db:5432/mydatabase
+    depends_on:
+      - dev-db
+
+  dev-db:
+    image: postgres:alpine3.21
+    restart: always
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=mydatabase
+    volumes:
+      # Persist the database data to a volume
+      - dev-db-data:/var/lib/postgresql/data
+    ports:
+      # Expose the database port (optional, useful for external tools)
+      - "5432:5432"
+
+volumes:
+  dev-db-data:

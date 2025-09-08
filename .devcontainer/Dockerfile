@@ -7,3 +7,5 @@ RUN apk update && apk add --no-cache \
 COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
+
+CMD ["sh", "-c", "echo 'Dev container is up and running successfully!' && sleep infinity"]
