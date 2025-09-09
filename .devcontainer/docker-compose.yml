@@ -9,12 +9,6 @@ services:
     volumes:
       # Mount the project directory from the host into the container
       - ..:/workspaces/Dev-Containers-Practice:cached
-    ports:
-      # Expose your application's port
-      - "8000:8000"
-    environment:
-      # Set environment variables for your application to connect to the DB
-      - DATABASE_URL=postgresql://user:password@dev-db:5432/mydatabase
     depends_on:
       - dev-db
 
